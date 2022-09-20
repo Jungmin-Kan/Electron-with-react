@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/App.css';
 
 import {
@@ -8,57 +8,83 @@ import {
   Link
 } from "react-router-dom";
 
+function Login(){
+  return(
+    <div>
+      <h1>로그인 화면</h1>
+    </div>
+  )
+}
 function Home() {
-    return (
-      <div>
-        <h2>Home</h2>
-      </div>
-    );
-  }
-  
-  function About() {
-    return (
-      <div>
-        <h2>About</h2>
-      </div>
-    );
-  }
-  
-  function Dashboard() {
-    return (
-      <div>
-        <h2>Dashboard</h2>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <h2>Home</h2>
+    </div>
+  );
+}
 
-  function Header() {
-    return (
-      <div style={{flexDirection:'column', justifyContent: 'space-between', backgroundColor:'red'}}>
-        <h2>Header</h2>
-        <div style={{flexDirection:'row', justifyContent: 'space-between', backgroundColor:'blue'}}>
-            <Link to="/">Go to Home</Link>
-            <Link to="/About">Go to About</Link>
-            <Link to="/Dashboard">Go to Dashboard</Link>
-        </div>
-      </div>
-    );
-  }
+function About() {
+  return (
+    <div>
+      <h2>About</h2>
+    </div>
+  );
+}
 
-  /**
-   * 라우팅 최신정보  v6
-   * https://velog.io/@soryeongk/ReactRouterDomV6
-   * @returns {Component}
-   */
+function Dashboard() {
+  return (
+    <div>
+      <h2>Dashboard</h2>
+    </div>
+  );
+}
+
+function Header() {
+  return (
+    <div style={{ flexDirection: 'column'}}>
+      <div style={{ flexDirection: 'row', justifyContent: 'space-between', flex:1 ,backgroundColor: 'red', padding:25 }}>
+        <span style={{padding:10}}>
+          <Link to="/" style={{textDecoration:'none',fontSize:25, color:'black', fontWeight:'bold'}}>홈</Link>
+        </span>
+        <span style={{padding:10}}>
+        <Link to="/About" style={{textDecoration:'none', fontSize:25, color:'black', fontWeight:'bold'}}>주문접수</Link>
+        </span>
+        <span style={{padding:10}}>
+        <Link to="/Dashboard" style={{textDecoration:'none', fontSize:25, color:'black', fontWeight:'bold'}}>Dashboard</Link>
+        </span>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * 라우팅 최신정보  v6
+ * https://velog.io/@soryeongk/ReactRouterDomV6
+ * @returns {Component}
+ */
 export default function App() {
+  const [isLogedin, setIsLogedin] = useState(false);
+  useEffect(()=>{
+    setTimeout(()=>{
+      setIsLogedin(true);
+    },3000);
+  },[])
+
+  if(isLogedin) {
     return (
-    <HashRouter>
+      <HashRouter>
         <Header />
         <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/About/*" element={<About />} />
-            <Route path="/Dashboard/*" element={<Dashboard />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/About/*" element={<About />} />
+          <Route path="/Dashboard/*" element={<Dashboard />} />
         </Routes>
-    </HashRouter>      
+      </HashRouter>
     )
+  }
+  return (
+    <>
+      <Login/>
+    </>
+  )
 }
